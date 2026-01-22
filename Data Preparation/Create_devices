@@ -1,0 +1,42 @@
+SELECT TOP 5 * FROM  Laptop
+SELECT TOP 5 * FROM  Phones
+
+-- Creating the table Devices with common columns 
+CREATE TABLE Devices (device_id  INT IDENTITY(1,1) PRIMARY KEY,device_type VARCHAR(50) NOT NULL,
+					  Brand NVARCHAR(50) NOT NULL, Name NVARCHAR(50) NOT NUll,[Resolution x] INT,[Resolution y] INT , RAM_MB INT,
+					  Price DECIMAL(10,2) NOT NULl,[Scren size (inches)] Float)
+
+
+-- INSERT THE PHONES DATA IN THE DEVICES TABLE 
+
+INSERT INTO Devices(device_type,
+					Brand,Name,
+					[Resolution x],[Resolution y],
+					RAM_MB,Price,[Scren size (inches)]) 
+					
+		SELECT 'Phone', Brand,
+		Name,[Resolution x],
+		[Resolution y],RAM_MB,
+		Price,[Screen size (inches)] 
+		FROM Phones
+
+
+-- INSERT THE LAPTOPS DATA IN THE DEVICES TABLE
+
+INSERT INTO Devices(device_type,
+					Brand,Name,
+					[Resolution x],[Resolution y],
+					RAM_MB,Price,[Scren size (inches)])
+					
+		SELECT 'Laptop', Brand,
+		Name,[Resolution x],
+		[Resolution y],RAM_MB,
+		Price,[Screen size (inches)] 
+		FROM Laptop
+
+-- Making the view for the table devices 
+CREATE VIEW dbo.ml_devices AS 
+	SELECT	d.device_id ,d.device_type, d.Brand, d.Name,d.[Scren size (inches)] AS screen_size_inches,
+			d.[Resolution x]  AS resolution_x,
+			d.[Resolution y]  AS resolution_y,d.Price
+			FROM Devices d
