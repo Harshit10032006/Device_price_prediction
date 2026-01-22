@@ -1,10 +1,13 @@
 import pandas as pd 
 from sqlalchemy import create_engine
 
+# SQL SERVER CONNECTION
+engine= create_engine( "mssql+pyodbc://@harshit\\SQLEXPRESS/DEVICES"
+    "?driver=ODBC+Driver+17+for+SQL+Server"
+    "&trusted_connection=yes")
 
+# PHONE DATA PREPARATION
 data=pd.read_csv('phone_price.csv')   
-
-
 data.rename(columns={
     "Battery capacity": "BatteryCapacity",
     "Screen size": "ScreenSize",
@@ -15,11 +18,9 @@ data.rename(columns={
 }, inplace=True)
 data.to_csv('phone_price.csv',index=False)
 
-engine= create_engine( "mssql+pyodbc://@harshit\\SQLEXPRESS/DEVICES"
-    "?driver=ODBC+Driver+17+for+SQL+Server"
-    "&trusted_connection=yes")
 data.to_sql('Phones',engine,index=False)
 
+# LAPTOP DATA PREPARATION
 
 lap=pd.read_csv(r"C:\Users\kholi\datascience\Project Phones\laptop_price.csv")
 lap.rename(columns={'Ram':'RAM_MB','Company':'Brand'},inplace=True)
@@ -31,8 +32,6 @@ lap['RAM_MB'] = pd.to_numeric(lap['RAM_MB'])
 
 lap['RAM_MB']=lap['RAM_MB']*1024
 lap['Price']=lap['Price']*107.22
-
-
 lap.drop(columns=['Unnamed: 16'], inplace=True)
 
 
