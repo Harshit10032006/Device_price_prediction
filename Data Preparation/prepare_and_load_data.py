@@ -1,13 +1,18 @@
 import pandas as pd 
 from sqlalchemy import create_engine
 
-# SQL SERVER CONNECTION
+
+data=pd.read_csv('phone_price.csv')  
+
+# SQL SERVER CONNCETION
+
 engine= create_engine( "mssql+pyodbc://@harshit\\SQLEXPRESS/DEVICES"
     "?driver=ODBC+Driver+17+for+SQL+Server"
     "&trusted_connection=yes")
 
-# PHONE DATA PREPARATION
-data=pd.read_csv('phone_price.csv')   
+
+ # PHONE DATA PREPERATION
+
 data.rename(columns={
     "Battery capacity": "BatteryCapacity",
     "Screen size": "ScreenSize",
@@ -17,10 +22,11 @@ data.rename(columns={
     "Wi-Fi": "HasWiFi"
 }, inplace=True)
 data.to_csv('phone_price.csv',index=False)
-
 data.to_sql('Phones',engine,index=False)
 
-# LAPTOP DATA PREPARATION
+
+
+ # LAPTOP DATA PREPERATION
 
 lap=pd.read_csv(r"C:\Users\kholi\datascience\Project Phones\laptop_price.csv")
 lap.rename(columns={'Ram':'RAM_MB','Company':'Brand'},inplace=True)
@@ -32,6 +38,8 @@ lap['RAM_MB'] = pd.to_numeric(lap['RAM_MB'])
 
 lap['RAM_MB']=lap['RAM_MB']*1024
 lap['Price']=lap['Price']*107.22
+
+
 lap.drop(columns=['Unnamed: 16'], inplace=True)
 
 
@@ -44,6 +52,9 @@ lap.to_csv('laptop_price.csv',index=False)
 
 lap.to_sql('Laptop',engine,index=False)
 
+# DEVICE TABLE IN csv
+df=pd.read_sql('SELECT * FROM dbo.ml_devices',engine)
+df.to_csv('devices_price.csv')
 
 
 
