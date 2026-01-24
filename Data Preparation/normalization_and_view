@@ -1,0 +1,50 @@
+-- CREATE AN DIFFERENT TABLE FOR THE DEVICES SPECS 
+CREATE Table device_specs( spec_id INT IDENTITY PRIMARY KEY ,
+						 device_id INT  NOT NULL,
+						 [Resolution x] INT NOT NULL,
+						 [Resolution y] INT NOT NULL,
+						 RAM_MB INT NOT NULL,
+						 FOREIGN KEY (device_id) REFERENCES Device(device_id))
+
+-- INSERT THE DATA INTO THE NEW TABLE
+INSERT INTO device_specs(device_id,[Resolution x],[Resolution y],RAM_MB)
+   SELECT device_id,[Resolution x] , [Resolution y],RAM_MB FROM Device
+
+		
+-- DELETE THE COLUMNS FROM THE DEVICES TABLE
+ALTER TABLE Devices DROP Column [Resolution y]
+		
+
+ALTER TABLE Devices DROP Column [Resolution x]
+		
+
+ALTER TABLE Devices DROP Column RAM_MB
+
+
+--CREATE VIEW ml_train (SELECT device_id,Brand,Name,Price,
+SELECT * FROM Devices
+SELECT * FROM device_specs
+
+
+CREATE OR ALTER VIEW dbo.ml_devices AS
+SELECT
+    d.device_id,
+    d.device_type,
+    d.Brand,
+    d.Name,
+    d.[Scren size (inches)] AS screen_size_inches,
+    s.RAM_MB,
+    s.[Resolution x],
+    s.[Resolution y],
+    d.Price
+FROM Devices d
+JOIN device_specs s
+    ON d.device_id = s.device_id;
+
+SELECT COUNT(*) FROM Devices;
+SELECT COUNT(*) FROM device_specs;
+
+SELECT * FROM dbo.ml_devices
+
+
+
