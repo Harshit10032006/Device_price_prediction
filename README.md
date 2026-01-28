@@ -1,46 +1,24 @@
 # Device Price Prediction System
 
-A Machine Learning–powered web application built using Streamlit, SQL Server, and Scikit-learn to analyze device market data and predict prices based on specifications.
+## Overview
+An end-to-end Machine Learning application to analyze device market data and predict prices.
 
-Features
-Price Prediction
+## Features
 
-Predict prices for Phones and Laptops
+### Price Prediction
+- Predict prices for phones and laptops
+- ML-based regression model
+- Expected price range output
 
-Uses a trained ML regression model
+### Market Analysis
+- Brand-wise average pricing
+- Price distribution analysis
+- Interactive charts
 
-Shows:
+## Tech Stack
+- Python
+- Streamlit
+- SQL Server
+- Scikit-learn
+- Plotly
 
-Minimum expected price
-
-Predicted price
-
-Maximum expected price
-
-Compares prediction with brand average price
-
-Market Analysis
-
-Most expensive, cheapest, and average price metrics
-
-Brand-wise average price comparison
-
-Price distribution analysis using bins
-
-Interactive charts with Plotly
-
-Tech Stack
-
-Python
-
-Streamlit
-
-Microsoft SQL Server
-
-SQLAlchemy
-
-Scikit-learn
-
-Plotly
-
-Joblib
