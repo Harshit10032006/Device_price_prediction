@@ -90,10 +90,16 @@ with tab_analysis:
         st.plotly_chart(fig)
 
     if st.button('Price Distribution'):
-            bins=[0,5000,10000,20000,30000,40000,50000,75000,100000,np.inf]
-            labels=['₹0-5K', '₹5K-10K', '₹10K-20K', '₹20K-30K', '₹30K-40K', '₹40K-50K', '₹50K-75K', '₹75K-1L', '₹1L+']
-            data['Price_Range']=pd.cut(data['Price'],bins=bins,labels=labels)
-            price_counts = data['Price_Range'].value_counts().sort_index().reset_index()
+            if device_type=='Phone':
+                bins=[0,5000,10000,20000,30000,40000,50000,75000,100000,np.inf]
+                labels=['₹0-5K', '₹5K-10K', '₹10K-20K', '₹20K-30K', '₹30K-40K', '₹40K-50K', '₹50K-75K', '₹75K-1L', '₹1L+']
+            else :
+                 bins=[0,10000,20000,40000,60000,80000,100000,150000,200000,np.inf]
+                 labels=['₹0-10K', '₹10K-20K', '₹20K-40K', '₹40K-60K', '₹60K-80K', '₹80K-1L', '₹1L-1.5L', '₹1.5L-2L', '₹2L+']
+            
+            dataa=data[data['device_type']==device_type]
+            dataa['Price_Range']=pd.cut(dataa['Price'],bins=bins,labels=labels)
+            price_counts = dataa['Price_Range'].value_counts().sort_index().reset_index()
             price_counts.columns = ['Price_Range', 'Count']
             chart=px.bar(price_counts, x='Price_Range',y='Count',
                 title=f'{device_type} Price Distribution ',
