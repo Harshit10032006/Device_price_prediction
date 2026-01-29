@@ -21,7 +21,7 @@ with st.sidebar:
     st.markdown("""
     **Device Price Prediction App**
     
-    End-to-end ML system using SQL Server and Streamlit.
+    End-to-end ML system using SQL Server and Streamlit
     **Features:**
     
     - ML Powered Predictions 
@@ -90,14 +90,14 @@ with tab_analysis:
         st.plotly_chart(fig)
 
     if st.button('Price Distribution'):
-            bins=[0,5000,10000,15000,20000,30000,50000,75000,80000,np.inf]
+            bins=[0,5000,10000,20000,30000,40000,50000,75000,100000,np.inf]
             labels=['₹0-5K', '₹5K-10K', '₹10K-20K', '₹20K-30K', '₹30K-40K', '₹40K-50K', '₹50K-75K', '₹75K-1L', '₹1L+']
             data['Price_Range']=pd.cut(data['Price'],bins=bins,labels=labels)
             price_counts = data['Price_Range'].value_counts().sort_index().reset_index()
             price_counts.columns = ['Price_Range', 'Count']
             chart=px.bar(price_counts, x='Price_Range',y='Count',
                 title=f'{device_type} Price Distribution ',
-                labels={'Price_Range': 'Price Range', 'Count': 'Number of Devices'},color='Count',color_continuous_scale='Viridis',
+                labels={'Price_Range': 'Price Range', 'Count': 'Number of Devices'},color='Count',color_continuous_scale='RdBu',
                 text='Count')
             st.plotly_chart(chart)
 
