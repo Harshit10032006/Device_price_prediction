@@ -14,16 +14,17 @@ def data():
 data=data()
 
 
-st.set_page_config(page_title="Device Price Prediction",page_icon="🖥️",layout="wide")
+st.set_page_config(page_title="Device Price Prediction",page_icon="🖥️",layout='wide')
 
 with st.sidebar:
-    st.header("About")
+    st.header("About:")
     st.markdown("""
     **Device Price Prediction App**
     
     End-to-end ML system using SQL Server and Streamlit
-    **Features:**
     
+    
+    **Features:**
     - ML Powered Predictions 
     - Market analysis
     - Brand comparisons
@@ -124,7 +125,7 @@ with tab_predic:
         with col3 :
               resx=st.slider("ResolutionX",4,3200,1440)
               resy=st.slider("ResolutionY",320,3840,2160)
-        if st.button("Predict Price :"):
+        if st.button("Predict Price"):
                 model=joblib.load('device_price_model.pkl')
                 prediction=pd.DataFrame([{'Brand':selected_brand,
                                       'device_type':Device_type,
