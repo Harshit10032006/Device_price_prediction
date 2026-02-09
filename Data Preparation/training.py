@@ -47,7 +47,7 @@ x=data.drop(columns=['device_id','Price','Name']).copy()
 for train_idx,test_idx in split.split(x,x['device_type']):
     x_train=x.iloc[train_idx]
     x_test=x.iloc[test_idx]
-    y_train=y.iloc[train_idx]
+    y_train=y.iloc[train_idx] # Target label 
     y_test=y.iloc[test_idx]
 
 num_col=['RAM_MB', 'Resolution x', 'Resolution y', 'screen_size_inches']
